@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
     console.log('User ' + userId + ' left room ' + chatroomId);
   });
 
-  socket.on('chatroomMessage', async({ chatroomId, message }) => {
+  socket.on('send_message', async({ chatroomId, message }) => {
     console.log('message');
     console.log(message);
     if(message.trim().length > 0) {
@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
         }
       );
       const chatroom = await Chatroom.findById(chatroomId);
-      io.to(chatroomId).emit('newMessage', { chatroom: chatroom });
+      io.to(chatroomId).emit('receive_message', { chatroom: chatroom });
     };
   });
 });
